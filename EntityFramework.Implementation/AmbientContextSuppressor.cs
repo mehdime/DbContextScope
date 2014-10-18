@@ -16,7 +16,6 @@ namespace Numero3.EntityFramework.Implementation
 
         public AmbientContextSuppressor()
         {
-            _disposed = false;
             _savedScope = DbContextScope.GetAmbientScope();
 
             // We're hiding the ambient scope but not removing its instance
@@ -50,6 +49,7 @@ namespace Numero3.EntityFramework.Implementation
             if (_savedScope != null)
             {
                 DbContextScope.SetAmbientScope(_savedScope);
+                _savedScope = null;
             }
 
             _disposed = true;
