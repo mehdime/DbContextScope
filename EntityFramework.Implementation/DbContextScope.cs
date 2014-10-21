@@ -106,9 +106,9 @@ namespace Numero3.EntityFramework.Implementation
             _dbContexts.Commit();
         }
 
-        private async Task CommitInternalAsync()
+        private Task CommitInternalAsync()
         {
-            await _dbContexts.CommitAsync().ConfigureAwait(false);
+            return _dbContexts.CommitAsync();
         }
 
         private void RollbackInternal()
