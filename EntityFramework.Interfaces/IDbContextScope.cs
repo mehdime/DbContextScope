@@ -44,13 +44,13 @@ namespace Numero3.EntityFramework.Interfaces
         /// Saves the changes in all the DbContext instances that were created within this scope.
         /// This method can only be called once per scope.
         /// </summary>
-        void SaveChanges();
+        int SaveChanges();
 
         /// <summary>
         /// Saves the changes in all the DbContext instances that were created within this scope.
         /// This method can only be called once per scope.
         /// </summary>
-        Task SaveChangesAsync();
+        Task<int> SaveChangesAsync();
 
         /// <summary>
         /// Reloads the provided persistent entities from the data store
