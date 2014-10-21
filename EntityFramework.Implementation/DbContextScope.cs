@@ -67,7 +67,7 @@ namespace Numero3.EntityFramework.Implementation
             SetAmbientScope(this);
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
             if (_disposed)
                 throw new ObjectDisposedException("DbContextScope");
@@ -76,15 +76,18 @@ namespace Numero3.EntityFramework.Implementation
 
             // Only save changes if we're not a nested scope. Otherwise, let the top-level scope 
             // decide when the changes should be saved.
+            var c = 0;
             if (!_nested)
             {
-                CommitInternal();
+                c = CommitInternal();
             }
 
             _completed = true;
+
+            return c;
         }
 
-        public async Task SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
             if (_disposed)
                 throw new ObjectDisposedException("DbContextScope");
@@ -93,22 +96,24 @@ namespace Numero3.EntityFramework.Implementation
 
             // Only save changes if we're not a nested scope. Otherwise, let the top-level scope 
             // decide when the changes should be saved.
+            var c = 0;
             if (!_nested)
             {
-                await CommitInternalAsync().ConfigureAwait(false);
+                c = await CommitInternalAsync().ConfigureAwait(false);
             }
 
             _completed = true;
+            return c;
         }
 
-        private void CommitInternal()
+        private int CommitInternal()
         {
-            _dbContexts.Commit();
+            return _dbContexts.Commit();
         }
 
-        private async Task CommitInternalAsync()
+        private async Task<int> CommitInternalAsync()
         {
-            await _dbContexts.CommitAsync().ConfigureAwait(false);
+            return await _dbContexts.CommitAsync().ConfigureAwait(false);
         }
 
         private void RollbackInternal()

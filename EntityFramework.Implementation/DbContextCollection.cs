@@ -84,7 +84,7 @@ namespace Numero3.EntityFramework.Implementation
             return _initializedDbContexts[requestedType]  as TDbContext;
         }
 
-        public void Commit()
+        public int Commit()
         {
             if (_disposed)
                 throw new ObjectDisposedException("DbContextCollection");
@@ -109,13 +109,15 @@ namespace Numero3.EntityFramework.Implementation
 
             ExceptionDispatchInfo lastError = null;
 
+            var c = 0;
+
             foreach (var dbContext in _initializedDbContexts.Values)
             {
                 try
                 {
                     if (!_readOnly)
                     {
-                        dbContext.SaveChanges();
+                        c += dbContext.SaveChanges();
                     }
 
                     // If we've started an explicit database transaction, time to commit it now.
@@ -137,9 +139,11 @@ namespace Numero3.EntityFramework.Implementation
 
             if (lastError != null)
                 lastError.Throw(); // Re-throw while maintaining the exception's original stack track
+
+            return c;
         }
 
-        public async Task CommitAsync()
+        public async Task<int> CommitAsync()
         {
             if (_disposed)
                 throw new ObjectDisposedException("DbContextCollection");
@@ -150,13 +154,15 @@ namespace Numero3.EntityFramework.Implementation
 
             ExceptionDispatchInfo lastError = null;
 
+            var c = 0;
+
             foreach (var dbContext in _initializedDbContexts.Values)
             {
                 try
                 {
                     if (!_readOnly)
                     {
-                        await dbContext.SaveChangesAsync();
+                        c += await dbContext.SaveChangesAsync();
                     }
 
                     // If we've started an explicit database transaction, time to commit it now.
@@ -178,6 +184,8 @@ namespace Numero3.EntityFramework.Implementation
 
             if (lastError != null)
                 lastError.Throw(); // Re-throw while maintaining the exception's original stack track
+
+            return c;
         }
 
         public void Rollback()
