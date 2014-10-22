@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Runtime.ExceptionServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Numero3.EntityFramework.Interfaces;
 
@@ -143,8 +144,15 @@ namespace Numero3.EntityFramework.Implementation
             return c;
         }
 
-        public async Task<int> CommitAsync()
+        public Task<int> CommitAsync()
         {
+            return CommitAsync(CancellationToken.None);
+        }
+
+        public async Task<int> CommitAsync(CancellationToken cancelToken)
+        {
+            if (cancelToken == null)
+                throw new ArgumentNullException("cancelToken");
             if (_disposed)
                 throw new ObjectDisposedException("DbContextCollection");
             if (_completed)
@@ -162,7 +170,7 @@ namespace Numero3.EntityFramework.Implementation
                 {
                     if (!_readOnly)
                     {
-                        c += await dbContext.SaveChangesAsync();
+                        c += await dbContext.SaveChangesAsync(cancelToken);
                     }
 
                     // If we've started an explicit database transaction, time to commit it now.
