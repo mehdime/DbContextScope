@@ -7,6 +7,7 @@
  */
 using System;
 using System.Collections;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Numero3.EntityFramework.Interfaces
@@ -51,6 +52,12 @@ namespace Numero3.EntityFramework.Interfaces
         /// This method can only be called once per scope.
         /// </summary>
         Task<int> SaveChangesAsync();
+
+        /// <summary>
+        /// Saves the changes in all the DbContext instances that were created within this scope.
+        /// This method can only be called once per scope.
+        /// </summary>
+        Task<int> SaveChangesAsync(CancellationToken cancelToken);
 
         /// <summary>
         /// Reloads the provided persistent entities from the data store

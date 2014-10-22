@@ -14,6 +14,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
+using System.Threading;
 using System.Threading.Tasks;
 using Numero3.EntityFramework.Interfaces;
 
@@ -87,8 +88,15 @@ namespace Numero3.EntityFramework.Implementation
             return c;
         }
 
-        public async Task<int> SaveChangesAsync()
+        public Task<int> SaveChangesAsync()
         {
+            return SaveChangesAsync(CancellationToken.None);
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancelToken)
+        {
+            if (cancelToken == null)
+                throw new ArgumentNullException("cancelToken");
             if (_disposed)
                 throw new ObjectDisposedException("DbContextScope");
             if (_completed)
@@ -99,7 +107,7 @@ namespace Numero3.EntityFramework.Implementation
             var c = 0;
             if (!_nested)
             {
-                c = await CommitInternalAsync().ConfigureAwait(false);
+                c = await CommitInternalAsync(cancelToken).ConfigureAwait(false);
             }
 
             _completed = true;
@@ -111,9 +119,9 @@ namespace Numero3.EntityFramework.Implementation
             return _dbContexts.Commit();
         }
 
-        private async Task<int> CommitInternalAsync()
+        private async Task<int> CommitInternalAsync(CancellationToken cancelToken)
         {
-            return await _dbContexts.CommitAsync().ConfigureAwait(false);
+            return await _dbContexts.CommitAsync(cancelToken).ConfigureAwait(false);
         }
 
         private void RollbackInternal()
