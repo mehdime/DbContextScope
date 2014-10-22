@@ -119,9 +119,9 @@ namespace Numero3.EntityFramework.Implementation
             return _dbContexts.Commit();
         }
 
-        private async Task<int> CommitInternalAsync(CancellationToken cancelToken)
+        private Task<int> CommitInternalAsync(CancellationToken cancelToken)
         {
-            return await _dbContexts.CommitAsync(cancelToken).ConfigureAwait(false);
+            return _dbContexts.CommitAsync(cancelToken);
         }
 
         private void RollbackInternal()
