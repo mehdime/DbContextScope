@@ -1,7 +1,7 @@
 DbContextScope
 ==============
 
-A simple and flexible way to manage your Entity Framework DbContext instances.
+A simple, correct and flexible way to manage your Entity Framework DbContext instances.
 
 `DbContextScope` was created out of the need for a better way to manage DbContext instances in Entity Framework-based applications. 
 
@@ -25,7 +25,7 @@ I would highly recommend reading the following blog post first. It examines in g
 
 This is the `DbContextScope` interface:
 
-```language-csharp
+```C#
 public interface IDbContextScope : IDisposable
 {
     void SaveChanges();
@@ -44,7 +44,7 @@ Wondering why DbContextScope wasn't called "UnitOfWork" or "UnitOfWorkScope"? Th
 
 You can instantiate a `DbContextScope` directly. Or you can take a dependency on `IDbContextScopeFactory`, which provides convenience methods to create a `DbContextScope` with the most common configurations:
 
-```language-csharp
+```C#
 public interface IDbContextScopeFactory
 {
     IDbContextScope Create(DbContextScopeOption joiningOption = DbContextScopeOption.JoinExisting);
@@ -60,7 +60,7 @@ public interface IDbContextScopeFactory
 ###Typical usage
 With `DbContextScope`, your typical service method would look like this:
 
-```language-csharp
+```C#
 public void MarkUserAsPremium(Guid userId)
 {
     using (var dbContextScope = _dbContextScopeFactory.Create())
@@ -74,7 +74,7 @@ public void MarkUserAsPremium(Guid userId)
 
 Within a `DbContextScope`, you can access the `DbContext` instances that the scope manages in two ways. You can get them via the `DbContextScope.DbContexts` property like this:
 
-```language-csharp
+```C#
 public void SomeServiceMethod(Guid userId)
 {
     using (var dbContextScope = _dbContextScopeFactory.Create())
@@ -88,7 +88,7 @@ public void SomeServiceMethod(Guid userId)
 
 But that's of course only available in the method that created the `DbContextScope`. If you need to access the ambient `DbContext` instances anywhere else (e.g. in a repository class), you can just take a dependency on `IAmbientDbContextLocator`, which you would use like this:
 
-```language-csharp
+```C#
 public class UserRepository : IUserRepository
 {
     private readonly IAmbientDbContextLocator _contextLocator;
@@ -113,7 +113,7 @@ You'll note that the service method doesn't need to know which type of `DbContex
 ###Nesting scopes
 A `DbContextScope` can of course be nested. Let's say that you already have a service method that can mark a user as a premium user like this:
 
-```language-csharp
+```C#
 public void MarkUserAsPremium(Guid userId)
 {
     using (var dbContextScope = _dbContextScopeFactory.Create())
@@ -127,7 +127,7 @@ public void MarkUserAsPremium(Guid userId)
 
 You're implementing a new feature that requires being able to mark a group of users as premium within a single business transaction. You can easily do it like this:
 
-```language-csharp
+```C#
 public void MarkGroupOfUsersAsPremium(IEnumerable<Guid> userIds)
 {
     using (var dbContextScope = _dbContextScopeFactory.Create())
@@ -161,7 +161,7 @@ If a service method is read-only, having to call `SaveChanges()` on its `DbConte
 
 The `DbContextReadOnlyScope` class addresses this issue. This is its interface:
 
-```language-csharp
+```C#
 public interface IDbContextReadOnlyScope : IDisposable
 {
     IDbContextCollection DbContexts { get; }
@@ -170,7 +170,7 @@ public interface IDbContextReadOnlyScope : IDisposable
 
 And this is how you use it:
 
-```language-csharp
+```C#
 public int NumberPremiumUsers()
 {
     using (_dbContextScopeFactory.CreateReadOnly())
@@ -183,7 +183,7 @@ public int NumberPremiumUsers()
 ###Async support
 `DbContextScope` works with async execution flows as you would expect:
 
-```language-csharp
+```C#
 public async Task RandomServiceMethodAsync(Guid userId)
 {
     using (var dbContextScope = _dbContextScopeFactory.Create())
@@ -210,7 +210,7 @@ In general, parallelizing database access within a single business transaction h
 
 However, if you really need to start a parallel task within a `DbContextScope` (e.g. to perform some out-of-band background processing independently from the outcome of the business transaction), then you **must** suppress the ambient context before starting the parallel task. Which you can easily do like this:
 
-```language-csharp
+```C#
 public void RandomServiceMethod()
 {
     using (var dbContextScope = _dbContextScopeFactory.Create())
@@ -246,7 +246,7 @@ Sometimes, a service method may need to persist its changes to the underlying da
 
 In that case, you can pass a value of `DbContextScopeOption.ForceCreateNew` as the `joiningOption` parameter when creating a new `DbContextScope`. This will create a `DbContextScope` that will not join the ambient scope even if one exists:
 
-```language-csharp
+```C#
 public void RandomServiceMethod()
 {
     using (var dbContextScope = _dbContextScopeFactory.Create(DbContextScopeOption.ForceCreateNew))
@@ -288,7 +288,7 @@ I.e. if the `DbContext` instances in the parent scope had already loaded the ent
 
 The `DbContextScope` class has a handy helper method that makes this fairly painless:
 
-```language-csharp
+```C#
 public void RandomServiceMethod(Guid accountId)
 {
 	// Forcing the creation of a new scope (i.e. we'll be using our 
