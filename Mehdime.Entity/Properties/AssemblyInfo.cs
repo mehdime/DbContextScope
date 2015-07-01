@@ -1,23 +1,16 @@
-﻿/* 
- * Copyright (C) 2014 Mehdi El Gueddari
- * http://mehdi.me
- *
- * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
- */
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EntityFramework.Implementation")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Mehdime.Entity")]
+[assembly: AssemblyDescription("A simple and flexible way to manage your Entity Framework DbContext instances.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EntityFramework.Implementation")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("Mehdi El Gueddari")]
+[assembly: AssemblyProduct("Mehdime.Entity")]
+[assembly: AssemblyCopyright("Copyright ©  2015 Mehdi El Gueddari")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -27,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ec85d5fd-c598-44a6-a874-ce028808acc0")]
+[assembly: Guid("4e66338f-702c-4511-850f-0f89186b1286")]
 
 // Version information for an assembly consists of the following four values:
 //

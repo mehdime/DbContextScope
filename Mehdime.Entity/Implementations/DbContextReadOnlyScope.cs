@@ -6,9 +6,8 @@
  * of the MIT license.  See the LICENSE file for details.
  */
 using System.Data;
-using Numero3.EntityFramework.Interfaces;
 
-namespace Numero3.EntityFramework.Implementation
+namespace Mehdime.Entity
 {
     public class DbContextReadOnlyScope : IDbContextReadOnlyScope
     {

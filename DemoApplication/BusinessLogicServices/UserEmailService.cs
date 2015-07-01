@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Numero3.EntityFramework.Demo.DatabaseContext;
 using Numero3.EntityFramework.Demo.DomainModel;
-using Numero3.EntityFramework.Interfaces;
+using Mehdime.Entity;
 
 namespace Numero3.EntityFramework.Demo.BusinessLogicServices
 {

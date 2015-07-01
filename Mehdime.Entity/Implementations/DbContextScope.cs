@@ -16,9 +16,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using System.Threading.Tasks;
-using Numero3.EntityFramework.Interfaces;
 
-namespace Numero3.EntityFramework.Implementation
+namespace Mehdime.Entity
 {
     public class DbContextScope : IDbContextScope
     {

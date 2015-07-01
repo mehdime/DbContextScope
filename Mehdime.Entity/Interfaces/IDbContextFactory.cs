@@ -7,7 +7,7 @@
  */
 using System.Data.Entity;
 
-namespace Numero3.EntityFramework.Interfaces
+namespace Mehdime.Entity
 {
     /// <summary>
     /// Factory for DbContext-derived classes that don't expose 

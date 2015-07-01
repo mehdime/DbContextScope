@@ -7,7 +7,7 @@
  */
 using System.Data.Entity;
 
-namespace Numero3.EntityFramework.Interfaces
+namespace Mehdime.Entity
 {
     /// <summary>
     /// Convenience methods to retrieve ambient DbContext instances. 

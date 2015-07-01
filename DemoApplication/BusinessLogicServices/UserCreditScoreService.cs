@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Numero3.EntityFramework.Demo.DatabaseContext;
-using Numero3.EntityFramework.Interfaces;
+using Mehdime.Entity;
 
 namespace Numero3.EntityFramework.Demo.BusinessLogicServices
 {

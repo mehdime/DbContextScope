@@ -8,7 +8,7 @@
 using System;
 using System.Data.Entity;
 
-namespace Numero3.EntityFramework.Interfaces
+namespace Mehdime.Entity
 {
     /// <summary>
     /// Maintains a list of lazily-created DbContext instances.
