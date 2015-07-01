@@ -1,7 +1,7 @@
 DbContextScope
 ==============
 
-A simple, correct and flexible way to manage your Entity Framework DbContext instances.
+A simple and flexible way to manage your Entity Framework DbContext instances.
 
 `DbContextScope` was created out of the need for a better way to manage DbContext instances in Entity Framework-based applications. 
 
