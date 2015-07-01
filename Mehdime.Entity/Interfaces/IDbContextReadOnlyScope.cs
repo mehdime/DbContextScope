@@ -7,7 +7,7 @@
  */
 using System;
 
-namespace Numero3.EntityFramework.Interfaces
+namespace Mehdime.Entity
 {
     /// <summary>
     /// A read-only DbContextScope. Refer to the comments for IDbContextScope

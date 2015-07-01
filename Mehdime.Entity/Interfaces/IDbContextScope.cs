@@ -10,7 +10,7 @@ using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Numero3.EntityFramework.Interfaces
+namespace Mehdime.Entity
 {
     /// <summary>
     /// Creates and manages the DbContext instances used by this code block. 

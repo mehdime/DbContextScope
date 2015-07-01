@@ -4,7 +4,7 @@ using Numero3.EntityFramework.Demo.BusinessLogicServices;
 using Numero3.EntityFramework.Demo.CommandModel;
 using Numero3.EntityFramework.Demo.DatabaseContext;
 using Numero3.EntityFramework.Demo.Repositories;
-using Numero3.EntityFramework.Implementation;
+using Mehdime.Entity;
 
 namespace Numero3.EntityFramework.Demo
 {

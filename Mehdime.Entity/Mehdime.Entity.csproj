@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{90D4492B-ABD8-4FE6-9F15-44ACAFFD8828}</ProjectGuid>
+    <ProjectGuid>{4830BAFD-4163-473E-B00F-65F274AC165F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Numero3.EntityFramework.Interfaces</RootNamespace>
-    <AssemblyName>Numero3.EntityFramework.Interfaces</AssemblyName>
+    <RootNamespace>Mehdime.Entity</RootNamespace>
+    <AssemblyName>Mehdime.Entity</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -33,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -48,13 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbContextScopeOption.cs" />
-    <Compile Include="IAmbientDbContextLocator.cs" />
-    <Compile Include="IDbContextCollection.cs" />
-    <Compile Include="IDbContextFactory.cs" />
-    <Compile Include="IDbContextReadOnlyScope.cs" />
-    <Compile Include="IDbContextScope.cs" />
-    <Compile Include="IDbContextScopeFactory.cs" />
+    <Compile Include="Implementations\AmbientContextSuppressor.cs" />
+    <Compile Include="Implementations\AmbientDbContextLocator.cs" />
+    <Compile Include="Implementations\DbContextCollection.cs" />
+    <Compile Include="Implementations\DbContextReadOnlyScope.cs" />
+    <Compile Include="Implementations\DbContextScope.cs" />
+    <Compile Include="Implementations\DbContextScopeFactory.cs" />
+    <Compile Include="Enums\DbContextScopeOption.cs" />
+    <Compile Include="Interfaces\IAmbientDbContextLocator.cs" />
+    <Compile Include="Interfaces\IDbContextCollection.cs" />
+    <Compile Include="Interfaces\IDbContextFactory.cs" />
+    <Compile Include="Interfaces\IDbContextReadOnlyScope.cs" />
+    <Compile Include="Interfaces\IDbContextScope.cs" />
+    <Compile Include="Interfaces\IDbContextScopeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,9 +12,8 @@ using System.Data.Entity;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Numero3.EntityFramework.Interfaces;
 
-namespace Numero3.EntityFramework.Implementation
+namespace Mehdime.Entity
 {
     /// <summary>
     /// As its name suggests, DbContextCollection maintains a collection of DbContext instances.

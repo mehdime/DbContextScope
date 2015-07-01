@@ -7,9 +7,8 @@
  */
 using System;
 using System.Data;
-using Numero3.EntityFramework.Interfaces;
 
-namespace Numero3.EntityFramework.Implementation
+namespace Mehdime.Entity
 {
     public class DbContextScopeFactory : IDbContextScopeFactory
     {
